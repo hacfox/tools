@@ -23,7 +23,7 @@ function deploy_exec() {
 
 	# pip install -r requirements-dev.txt
 
-	name="endorsit_admin_api"
+	name="your process name"
 	project="$name.wsgi"
 
 	sudo supervisorctl -c /etc/supervisord/supervisord.conf stop $name
