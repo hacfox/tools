@@ -1,0 +1,73 @@
+#!/bin/bash
+target_branch="staging"
+working_tree="/home/yourusername/projectname"
+
+function deploy_exec() {
+	unset $(git rev-parse --local-env-vars)
+	git_path=$1
+
+	cd $git_path
+
+	git stash
+	git pull origin staging
+	git stash pop
+
+	# git add .
+	# git commit -m 'Automatic merge :)'
+	# push_api=$(git push origin staging)
+
+	# if [[ $push_api == ~"error" ]];then
+	#	echo "something wrong, please check or ask for help."
+	#	exit 0
+	# fi
+
+	# pip install -r requirements-dev.txt
+
+	name="endorsit_admin_api"
+	project="$name.wsgi"
+
+	sudo supervisorctl -c /etc/supervisord/supervisord.conf stop $name
+
+	wsgi_num=`ps aux | grep "$project" | wc -l`
+
+	if test $? -eq "0";then
+	        echo [$project] "has been stopped"
+	fi
+	if test "$wsgi_num" -gt "1" ;then
+	        args=`ps aux | grep -w "$project" | awk '{print $2}'`
+	        n=1
+	        for i in $args
+	        do
+	          if [ "$n" -eq "$wsgi_num" ];then
+	                echo "$i has been killed."
+	                echo "ok..."
+	                break
+	          fi
+	          kill -9 $i
+	          # if test $? -eq "0";then
+	          #       echo "$i has been killed."
+	          # fi
+	          ((n++))
+	        done
+	fi
+
+	sudo supervisorctl -c /etc/supervisord/supervisord.conf start $name
+	echo "done"
+	exit 0
+}
+
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+    if [ -n "$branch" ] && [ "$target_branch" == "$branch" ]; then
+        GIT_WORK_TREE=$working_tree git checkout $target_branch -f
+        NOW=$(date +"%Y-%m-%d %H:%M")
+        echo "   /==============================="
+        echo "   | MESSION COMPLETED"
+        echo "   | Target branch: $target_branch"
+       # echo "   | Target folder: $working_tree"
+        echo "   | Tag name     : $NOW"
+        echo "   \=============================="
+        deploy_exec $working_tree
+    fi
+done
