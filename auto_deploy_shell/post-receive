@@ -65,7 +65,7 @@ do
         echo "   /==============================="
         echo "   | MESSION COMPLETED"
         echo "   | Target branch: $target_branch"
-       # echo "   | Target folder: $working_tree"
+        # echo "   | Target folder: $working_tree"
         echo "   | Tag name     : $NOW"
         echo "   \=============================="
         deploy_exec $working_tree
