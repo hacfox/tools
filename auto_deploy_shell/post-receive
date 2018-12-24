@@ -5,8 +5,7 @@ working_tree="/home/your_username/your_project_name"
 function deploy_exec() {
 	unset $(git rev-parse --local-env-vars)
 	
-	git_path=$1
-	cd $git_path
+	cd $1
 
 	name="your project name"
 	project="$name.wsgi"
