@@ -10,14 +10,14 @@ do
         GIT_WORK_TREE=$working_tree git checkout $target_branch -f
 	if test $? -eq "0";then
 		echo "   /=============================="
-		echo "   | MESSION SUCCEESS"
+		echo "   | MISSION SUCCEESS"
 		echo "   | Target branch: $target_branch"
 		# echo "   | Target folder: $working_tree"
 		echo "   | Tag time	: $NOW"
 		echo "   \=============================="
 	else
 		echo "   /=============================="
-		echo "   | MESSION FAIL"
+		echo "   | MISSION FAIL"
 	        echo "   | Tag time     : $NOW"
 		echo "   \=============================="
 	fi
