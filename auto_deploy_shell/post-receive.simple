@@ -13,12 +13,12 @@ do
 		echo "   | MISSION SUCCEESS"
 		echo "   | Target branch: $target_branch"
 		# echo "   | Target folder: $working_tree"
-		echo "   | Tag time	: $NOW"
+		echo "   | Tag time	    : $NOW"
 		echo "   \=============================="
 	else
 		echo "   /=============================="
 		echo "   | MISSION FAIL"
-	        echo "   | Tag time     : $NOW"
+	    echo "   | Tag time     : $NOW"
 		echo "   \=============================="
 	fi
     fi
