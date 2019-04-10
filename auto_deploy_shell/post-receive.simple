@@ -7,18 +7,18 @@ do
     branch=$(git rev-parse --symbolic --abbrev-ref $refname)
     if [ -n "$branch" ] && [ "$target_branch" == "$branch" ]; then
 	NOW=$(date +"%Y-%m-%d %H:%M")
-        GIT_WORK_TREE=$working_tree git checkout $target_branch -f
+    GIT_WORK_TREE=$working_tree git checkout $target_branch -f
 	if test $? -eq "0";then
 		echo "   /=============================="
 		echo "   | MISSION SUCCEESS"
 		echo "   | Target branch: $target_branch"
 		# echo "   | Target folder: $working_tree"
-		echo "   | Tag time	: $NOW"
+		echo "   | Tag time	    : $NOW"
 		echo "   \=============================="
 	else
 		echo "   /=============================="
 		echo "   | MISSION FAIL"
-	        echo "   | Tag time     : $NOW"
+	    echo "   | Tag time     : $NOW"
 		echo "   \=============================="
 	fi
     fi
